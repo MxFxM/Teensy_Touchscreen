@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+#define TOUCH_DEVICE 2
+
 // Connections to the touchscreen
 #define X_AXIS_RIGHT 15
 #define X_AXIS_LEFT 17
@@ -14,13 +16,14 @@
 
 // Mapping values
 #define MAP_LEFT 0
-#define MAP_RIGHT 100
+#define MAP_RIGHT 1000
 #define MAP_TOP 0
-#define MAP_BOTTOM 100
+#define MAP_BOTTOM 1000
 
 void setup() {
   Serial.begin(9600); // Usb is always 12 Mbit/s
-  while(!Serial.available()) {;} // Wait for serial communication
+//  while(!Serial.available()) {;} // Wait for serial communication
+  Mouse.screenSize(MAP_RIGHT, MAP_BOTTOM);
 }
 
 void loop() {
@@ -64,4 +67,6 @@ void loop() {
   Serial.print(x_axis);
   Serial.print("\tY: ");
   Serial.println(y_axis);
+
+  Mouse.moveTo(x_axis, y_axis);
 }
